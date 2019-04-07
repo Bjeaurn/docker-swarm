@@ -8,7 +8,7 @@ The `environments: VIRTUAL_HOST` is what `dockergen` uses to see which IP needs 
 You can inspect the resulting `nginx` configuration with the following command:
 
 ```
-docker exec -ti <container-apache-id> cat /etc/nginx/conf.d/default.conf
+docker exec -ti <nginx-container-id> cat /etc/nginx/conf.d/default.conf
 ```
 
 ### VIRTUAL_HOST
