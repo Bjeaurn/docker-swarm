@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  nginx:
+    image: nginx:latest
+    environment:
+      VIRTUAL_HOST: example.com,www.example.com
+    networks:
+     - default
+     - public
+    logging:
+      driver: json-file
+networks:
+  default:
+    driver: overlay
+  public:
+    external: true

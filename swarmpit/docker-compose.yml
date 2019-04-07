@@ -1,0 +1,74 @@
+version: '3.4'
+services:
+  agent:
+    image: swarmpit/agent:2.0
+    environment:
+      DOCKER_API_VERSION: '1.35'
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+     - net
+    logging:
+      driver: json-file
+    deploy:
+      mode: global
+      resources:
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+        limits:
+          cpus: '0.1'
+          memory: 64M
+  app:
+    image: swarmpit/swarmpit:1.6
+    environment:
+      SWARMPIT_DB: http://db:5984
+      VIRTUAL_HOST: <subdomain>.<domain>.com
+    ports:
+     - 888:8080
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+     - public
+     - net
+    logging:
+      driver: json-file
+    deploy:
+      update_config:
+        order: start-first
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+         - node.role == manager
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+        limits:
+          cpus: '0.5'
+          memory: 1024M
+  db:
+    image: couchdb:2.3.0
+    volumes:
+     - db-data:/opt/couchdb/data
+    networks:
+     - net
+    logging:
+      driver: json-file
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.15'
+          memory: 64M
+        limits:
+          cpus: '0.3'
+          memory: 128M
+networks:
+  net:
+    driver: overlay
+  public:
+    external: true
+volumes:
+  db-data:
+    driver: local
