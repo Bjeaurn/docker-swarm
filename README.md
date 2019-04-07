@@ -1,6 +1,9 @@
 # Docker Swarm
 This is my basic setup to get a Docker Swarm running. Each of the folders above is a separate `stack` within the swarm.
 
+### VIRTUAL_HOST
+Throughout the `docker-compose.yml` files, you will see `environment` settings called `VIRTUAL_HOST`. I've omitted the actual values for now (could move these to a `.env` file I guess), so make sure they reflect your setup and situation before you start deploying.
+
 ### Networking and reverse proxying
 In the docker-compose files you'll see some `networks: - public`, I created a network within the Docker Swarm called `public` in `overlay` mode. Any service that I want to expose to the outside world needs to join this `public` network, so the `nginx` instances; exposed on `ports: 80:80` and `443:443` can be automatically loadbalanced by the Docker Swarm, which will receive the IPs over the `public` network from the instances detected.
 
