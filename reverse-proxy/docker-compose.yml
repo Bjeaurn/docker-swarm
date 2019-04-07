@@ -23,6 +23,7 @@ services:
   nginx-gen:
     image: jwilder/docker-gen:latest
     command: -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl
+    # nginx doesn't work in swarm mode, so if you have 1 nginx instance and you put it's docker container Id here, it works. Workaround.
       /etc/nginx/conf.d/default.conf
     volumes:
      - /docker/nginx/conf.d:/etc/nginx/conf.d
