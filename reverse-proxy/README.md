@@ -13,3 +13,7 @@ docker exec -ti <container-id> nginx -s reload
 You will have to do this for all the instances of Nginx you're running. Maybe this can be easily scripted.
 
 If you don't want to use this system, or just want it to automatically generate and update; remove the nginx, nginx-gen and letsencrypt and add in `jwilder/nginx-proxy`, you can replicate this multiple times, but it's secretly dockergen.
+
+## Todo
+Consider switching to `https://hub.docker.com/r/arefaslani/nginx-autoconf/` ?
+Another option here is https://github.com/jwilder/docker-gen/issues/77#issuecomment-265008801

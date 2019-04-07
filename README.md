@@ -11,6 +11,9 @@ You can inspect the resulting `nginx` configuration with the following command:
 docker exec -ti <nginx-container-id> cat /etc/nginx/conf.d/default.conf
 ```
 
+### Create the public network
+`docker network create public -d overlay`
+
 ### VIRTUAL_HOST
 Throughout the `docker-compose.yml` files, you will see `environment` settings called `VIRTUAL_HOST`. I've omitted the actual values for now (could move these to a `.env` file I guess), so make sure they reflect your setup and situation before you start deploying.
 
